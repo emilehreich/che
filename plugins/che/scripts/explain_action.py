@@ -37,7 +37,7 @@ from fnmatch import fnmatchcase
 from urllib.parse import urlparse
 
 PLUGIN = "che"
-VERSION = "0.7.1"
+VERSION = "0.7.2"
 EDIT_CARD_MIN = (2, 1, 287)   # the edit card is a hooks module ("mod"), new in this version
 
 

@@ -46,7 +46,18 @@ right above the prompt.
   feature flags. It ignores some props (Text `size`/`mono`, Code highlighting);
   repeated-character rules don't fit its proportional font, so panels get a
   Markdown `---` rule and commands in `Code` boxes, the terminal gets `─` rules
-  and word-wrapped Text. Not tested in the panel itself yet.
+  and word-wrapped Text.
+- Panel width: the panel lays a tool row out only as wide as its longest line
+  (`align-items: flex-start`), so `width: "100%"` there means the text's width,
+  and numeric widths become CSS `ch`, narrower than its columns (counted in
+  `─` widths) and than the transcript. What fills it: a hidden zero-height Box
+  of long wrapping text at the top of every panel card (`stretch` in `kit`).
+- Never put `width` (or other layout props) on the Box that holds the engine's
+  own row (`base`): the engine refuses the whole tree ("engine node under a Box
+  with prop width") and the card silently disappears. Refusals are logged in
+  VS Code's log: `~/Library/Application Support/Code/logs/<date>/window*/exthost/Anthropic.claude-code/Claude VSCode.log`.
+- The band above the prompt (`AbovePrompt`) is hidden by the panel while an
+  approval card is open, so it can't hold the card.
 - `claude plugin validate .` must pass. Its static analysis requires `$` to be
   passed only to top-level functions (not closures defined inside `register`).
 
