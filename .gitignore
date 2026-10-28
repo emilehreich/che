@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.DS_Store
+# written by `claude plugin validate`
+plugins/*/.claude-plugin/types/
+plugins/*/tsconfig.json

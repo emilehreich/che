@@ -1,0 +1,6 @@
+{
+  "description": "Review cards above approval prompts: intent, every part of a command, effects and risk; plain English and pseudocode for file edits",
+  "modules": [
+    "./cards.js"
+  ]
+}

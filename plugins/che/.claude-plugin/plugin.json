@@ -1,0 +1,65 @@
+{
+  "name": "che",
+  "displayName": "che",
+  "version": "0.7.1",
+  "description": "A review card above every approval prompt. Shell commands, web fetches and connector tools: why Claude wants the step, which part of your task it serves, every part of the command word for word with what it does, effects, risk and what Claude did so far. File edits: what the change does and why, and its logic as pseudocode.",
+  "author": {
+    "name": "Emile Hreich"
+  },
+  "keywords": [
+    "permissions",
+    "approval",
+    "review",
+    "safety",
+    "hooks",
+    "bash"
+  ],
+  "userConfig": {
+    "backend": {
+      "type": "string",
+      "title": "Explanation engine",
+      "description": "auto = a small model writes the cards through your Claude Code session (default). local = no model: instant and offline, with less insight.",
+      "default": "auto"
+    },
+    "model": {
+      "type": "string",
+      "title": "Model",
+      "description": "Model alias or ID that writes the cards. A small fast model keeps them quick.",
+      "default": "haiku"
+    },
+    "language": {
+      "type": "string",
+      "title": "Language",
+      "description": "Language for the explanations.",
+      "default": "English"
+    },
+    "timeout_seconds": {
+      "type": "number",
+      "title": "Model timeout (seconds)",
+      "description": "If the model takes longer, the card shows what the plugin knows without it.",
+      "default": 20,
+      "min": 3,
+      "max": 40
+    },
+    "tools": {
+      "type": "string",
+      "title": "Covered tools",
+      "description": "Comma-separated tools whose prompts get a card. 'mcp' covers every connector (MCP) tool. File edits are covered by 'Explain file edits'.",
+      "default": "Bash,PowerShell,WebFetch,mcp"
+    },
+    "explain_edits": {
+      "type": "boolean",
+      "title": "Explain file edits",
+      "description": "Plain-English card above file-edit prompts: what the file is, what the change does and why, the new logic as pseudocode, and points to double-check.",
+      "default": true
+    },
+    "breakdown_min_length": {
+      "type": "number",
+      "title": "Step-by-step breakdown from this length",
+      "description": "A single command at least this long is still broken into its parts. Chained, piped and multi-line commands always are.",
+      "default": 40,
+      "min": 0,
+      "max": 2000
+    }
+  }
+}

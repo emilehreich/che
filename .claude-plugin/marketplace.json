@@ -1,0 +1,14 @@
+{
+  "name": "che",
+  "description": "Tools that make Claude Code approval prompts quicker to review",
+  "owner": {
+    "name": "Emile Hreich"
+  },
+  "plugins": [
+    {
+      "name": "che",
+      "source": "./plugins/che",
+      "description": "Why, what and how risky: a review card above every approval prompt, with pseudocode for file edits"
+    }
+  ]
+}
