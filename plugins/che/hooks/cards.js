@@ -290,9 +290,14 @@ function kit(el, e) {
   ] }))
   const labelled = (k, name, kids) => Box({ key: k, flexDirection: "row", children: [
     label(k + "l", name), Box({ flexGrow: 1, flexShrink: 1, flexDirection: "column", children: kids })] })
+  // Panels lay a tool row out only as wide as its longest line, so they get a
+  // hidden zero-height line of long wrapping text: the card then always takes
+  // the panel's full width, whatever it says.
+  const stretch = Box({ key: "stretch", height: 0, overflow: "hidden", children: [
+    Text({ wrap: "wrap", children: ["· ".repeat(400)] })] })
   const frame = (k, level, kids) => Box({ key: k, flexDirection: "column", width: "100%",
                                           borderStyle: "round", borderColor: RISK[level].color,
-                                          paddingX: 2, paddingY: 1, children: kids })
+                                          paddingX: 2, paddingY: 1, children: terminal ? kids : [stretch, ...kids] })
   const header = (title, level, extra) => Box({ key: "head", flexDirection: "row", flexWrap: "wrap",
                                                marginBottom: 1, children: [
     Text({ key: "t", bold: true, children: [title + "   "] }),
@@ -685,6 +690,8 @@ export function register(on, options = {}) {
                     marginTop: 1, children: [
         card.kind === "edit" ? drawEditCard(el, card, e) : drawActionCard(el, card, e)] })
     }
+    // No layout props on this Box: the engine refuses a tree whose Box around its own row has a width.
+    // Not the band above the prompt either: the VS Code panel hides that band while an approval is open.
     return Box({ flexDirection: "column", children: [base, extra] })
   })
 }

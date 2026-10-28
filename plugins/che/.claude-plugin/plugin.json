@@ -1,7 +1,7 @@
 {
   "name": "che",
   "displayName": "che",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "A review card above every approval prompt. Shell commands, web fetches and connector tools: why Claude wants the step, which part of your task it serves, every part of the command word for word with what it does, effects, risk and what Claude did so far. File edits: what the change does and why, and its logic as pseudocode.",
   "author": {
     "name": "Emile Hreich"

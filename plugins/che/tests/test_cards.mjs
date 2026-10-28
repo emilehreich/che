@@ -281,8 +281,11 @@ await test("panels: full width, code boxes for commands, markdown rules", () => 
   assert.deepEqual(findAll(card, (n) => n.t === "Code").map((n) => n.p.source),
                    ["for b in a b", "do rm -rf build/$b", "npm ci"])
   assert.ok(findAll(card, (n) => n.t === "Markdown" && n.p.text === "---").length >= 2)
+  // Panels size a row to its longest line: a hidden long line stretches every card to full width.
+  assert.equal(findAll(card, (n) => n.p?.key === "stretch" && n.p.height === 0).length, 1)
   const term = M.drawActionCard(el, { data: DATA, reply: M.parseActionReply(ACTION_REPLY), offline: "" }, TERM)
   assert.equal(findAll(term, (n) => n.t === "Code").length, 0)          // the terminal wraps at spaces
+  assert.equal(findAll(term, (n) => n.p?.key === "stretch").length, 0)
 })
 
 async function actionFlow(opts = {}, options = {}) {
@@ -316,6 +319,9 @@ await test("hosts (VS Code panel, desktop) get the card without a terminal promp
   await settle()
   assert.equal(f.calls.model.length, 1)
   assert.match(await f.render(), /Before you approve/)
+  const root = await f.h["ui.render:ToolUse"](f.$, { props: { tool_use_id: "b1" }, surface: "vscode", viewport: { columns: 60, rows: 40 } },
+                                               async () => "row")
+  assert.equal(root.p.width, undefined)                         // the engine refuses a width around its own row
 })
 
 await test("folded tool groups unfold while a call has a card", async () => {
